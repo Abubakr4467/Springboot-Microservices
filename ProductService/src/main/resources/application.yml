@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: productdb
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost:5433}/productdb
+    username: postgres
+    password: admin
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+    ddl-auto: update
+
+  sql:
+    init:
+      mode: always
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+#  web:
+#    resources:
+#      static-locations: classpath:/resources/images
+
+
+server:
+  port: 4040

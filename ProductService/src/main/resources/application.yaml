@@ -1,12 +1,17 @@
+
+
 spring:
+
   application:
-    name: productdb
+    name: PRODUCT_SERVICE
+  config:
+    import: configserver:http://localhost:9296
+
 
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost:5433}/productdb
     username: postgres
     password: admin
-
 
   jpa:
     hibernate:
@@ -26,13 +31,20 @@ spring:
       mode: always
 
 
-  main:
     allow-bean-definition-overriding: true
 
-#  web:
-#    resources:
-#      static-locations: classpath:/resources/images
-
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+#
 
 server:
   port: 4040
+
+

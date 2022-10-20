@@ -1,6 +1,7 @@
 package edu.miu.OrderService.service;
 
 import edu.miu.OrderService.entity.Order;
+import edu.miu.OrderService.external.client.ProductService;
 import edu.miu.OrderService.model.OrderRequest;
 import edu.miu.OrderService.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +18,9 @@ public class OrderServiceImp implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Override
     public long placeOrder(OrderRequest orderRequest) {
 
@@ -26,7 +30,8 @@ public class OrderServiceImp implements OrderService{
 
 
         log.info("placing order request: {}", orderRequest);
-
+        productService.reduceQuantity(orderRequest.getProductId(),orderRequest.getQuantity());
+        log.info("Creating order with status CREATED");
         Order order = Order.builder()
                 .amount(orderRequest.getTotalAmount())
                 .orderStatus("CREATED")

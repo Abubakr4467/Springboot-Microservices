@@ -19,6 +19,10 @@ public class OrderController {
     @PostMapping("/placeOrder")
     public ResponseEntity<Long> placeOrder(@RequestBody OrderRequest orderRequest){
 
+        //Order Entity -> Save the data with status order created
+        //Product service -> Block products (Reduce the quantity)
+        //Payment service ->  Payments -> Success -> Complete, else throw
+
         long orderId =  orderService.placeOrder(orderRequest);
         log.info("Order Id: {}", orderId);
         return new ResponseEntity<>(orderId, HttpStatus.OK);

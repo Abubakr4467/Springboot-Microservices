@@ -1,0 +1,50 @@
+
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: PAYMENT-SERVICE
+  config:
+    import: configserver:http://localhost:9296
+
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost:5433}/paymentdb
+    username: paymentdb
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+    ddl-auto: update
+
+  sql:
+    init:
+      mode: always
+
+
+    allow-bean-definition-overriding: true
+
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+#
+
+
+

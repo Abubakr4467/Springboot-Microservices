@@ -11,6 +11,9 @@ spring:
     username: postgres
     password: admin
 
+
+
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,10 +29,7 @@ spring:
     init:
       mode: always
 
-#
-#    allow-bean-definition-overriding: true
-#
-#
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -38,6 +38,3 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
-
-#
-#

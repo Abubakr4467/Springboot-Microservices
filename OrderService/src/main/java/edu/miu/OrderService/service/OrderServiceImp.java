@@ -1,10 +1,12 @@
 package edu.miu.OrderService.service;
 
 import edu.miu.OrderService.entity.Order;
+import edu.miu.OrderService.exception.CustomException;
 import edu.miu.OrderService.external.client.PaymentService;
 import edu.miu.OrderService.external.client.ProductService;
 import edu.miu.OrderService.external.request.PaymentRequest;
 import edu.miu.OrderService.model.OrderRequest;
+import edu.miu.OrderService.model.OrderResponse;
 import edu.miu.OrderService.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.weaver.ast.Or;
@@ -76,5 +78,21 @@ public class OrderServiceImp implements OrderService{
 
         log.info("Order Placed successfully with order Id:{} ", order.getId());
         return order.getId();
+    }
+
+    @Override
+    public OrderResponse getOrderDetails(long orderId) {
+        log.info("Get order details for Order Id: {} ", orderId);
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow( ()-> new CustomException("Order not found for Order Id : " + orderId, "NOT_FOUND", 404));
+
+        OrderResponse orderResponse = OrderResponse.builder()
+                .orderId(order.getId())
+                .orderStatus(order.getOrderStatus())
+                .amount(order.getAmount())
+                .orderDate(order.getOrderDate())
+                .build();
+        return orderResponse;
     }
 }
